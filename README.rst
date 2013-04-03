@@ -6,6 +6,8 @@ A timeline of events in the `history <https://wiki.spodeli.org/Важни_нас
 Build
 -----
 
+.. code:: makefile
+
     [sudo] gem install timeline_setter
     make
 
