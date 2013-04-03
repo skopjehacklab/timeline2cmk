@@ -21,29 +21,37 @@ def crawl():
         content.remove(el)
 
     # parse data
-    cur_date = ''
+    cur_date, cur_html = '', ''
 
     skip = True # skip until you get time header
 
     for el in content:
-        if not skip and el.tag=='p':
-            yield cur_date, el
+        if el.tag=='p':
+            cur_html = cur_html + tostring(el)
 
         elif el.tag=='h3':
-            skip = False
+            if not skip:
+                yield cur_date, cur_html
+
             el_span = el.cssselect('span[id]')[0]
-            cur_date = el_span.text.strip()
+            cur_date = el_span.text_content().strip()
+            cur_html = ''
+
+            skip = False
+
+    if cur_html != '':
+        yield cur_date, cur_html
 
 def process_date(data):
     """Process human dates to machine readable dates"""
-    for date, el in data:
+    for date, html in data:
         if date.endswith(u'година'):
             date = date[:-6].strip()
         date = date.lower()
         display_date = date
         for i, month in enumerate(MONTHS):
             if month in date:
-                date = date.replace(month, str(i))
+                date = date.replace(month, str(i+1))
                 break
         try:
             date = datetime.strptime(date, '%d %m %Y').strftime('%Y-%m-%d')
@@ -53,17 +61,17 @@ def process_date(data):
             except Exception:
                 date = ''
 
-        yield date, display_date, el
+        yield date, display_date, html
 
 def output(data, keep_empty_date=False):
     """Write output to csv,
        set keep_empty_date to include the invalid date entries"""
     with open('timeline.csv', 'w') as f:
         f.write('date,display_date,description,link,series,html\n')
-        for date, display_date, el in data:
+        for date, display_date, html in data:
             if keep_empty_date or date!='':
                 #text = el.text_content().replace('"', u'“').replace('\n',' ').strip()
-                html = tostring(el).replace('\n',' ').replace('"','""').strip()
+                html = html.replace('\n',' ').replace('"','""').strip()
                 #if text=='': continue
                 line = '"%s",%s,,,,"%s"\n' % (date,
                                               display_date.encode('ascii', 'xmlcharrefreplace'),
@@ -73,6 +81,6 @@ def output(data, keep_empty_date=False):
 def main():
     data = crawl()
     data = process_date(data)
-    output(data, keep_empty_date=False)
+    output(data, keep_empty_date=True)
 
 main()
