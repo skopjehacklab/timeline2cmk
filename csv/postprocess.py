@@ -20,6 +20,9 @@ def postprocess(doc):
     # add meta charset
     doc.cssselect('head')[0].insert(0, Element('meta', attrib={'charset': 'utf-8'}))
 
+    # hotlink customized css
+    doc.cssselect('head link')[0].attrib['href'] = "stylesheets/timeline-setter-custom.css"
+
     # add header
     header = load_partial('header.html')
     doc.cssselect('body')[0].insert(0, header)
