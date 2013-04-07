@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from os.path import abspath, dirname
 
 from lxml.html import fromstring, tostring, Element
@@ -22,6 +23,11 @@ def postprocess(doc):
 
     # hotlink customized css
     doc.cssselect('head link')[0].attrib['href'] = "stylesheets/timeline-setter-custom.css"
+
+    # add title
+    title = Element('title')
+    title.text = u'Слободен софтвер Македонија низ годините'
+    doc.cssselect('head')[0].insert(0, title)
 
     # add header
     header = load_partial('header.html')
