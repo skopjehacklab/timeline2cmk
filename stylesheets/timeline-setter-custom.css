@@ -157,24 +157,27 @@
   z-index: 9999;
 }
 .TS-controls {
-  margin: 0 0 0 0;
-  float:right;
-  height:40px;
+  margin: 1em auto 0;
+  /*float:right;*/
+  /*height:40px;*/
   overflow:visible;
-  text-align: right;
-  width: 210px;
+  text-align: center;
+  /*width: 210px;*/
 }
 .TS-zoom-container {
-  width:50px;
+	display:inline-block;
+  /*width:50px;*/
 }
 .TS-choose-container {
-  width:155px;
-  margin-left:55px;
-  margin-top:-15px;
+  /*width:155px;*/
+  display:inline-block;
+  margin-left:0.5em;
+  /*margin-top:-15px;*/
 }
 .TS-controls a {
   border:1px solid #cecece;
   background-color:#f0f0f0;
+  box-shadow: 0px 0px 2px rgb(206, 206, 206);
   padding:3px 5px 3px 5px;
   color:#444;
   font-family:"Helvetica Neue",Arial,sans-serif;
@@ -189,7 +192,7 @@
   -moz-box-shadow: #f0f0f0 0 0 2px;
 }
 .TS-controls a.TS-choose {
-  padding: 7px;
+  padding: 8px;
   background: #f0f0f0;
   -webkit-border-radius: 04px;
   -moz-border-radius: 04px;
@@ -202,7 +205,7 @@
   -webkit-user-select: none;
   color: #444;
   text-decoration: none;
-  margin: 3px 0 10px 0;
+  margin: 0 2px;
   font-family: "Helvetica",Arial,sans-serif;
   font-size: 14px;
   text-align: center;
@@ -234,8 +237,9 @@
   background-repeat:no-repeat;
   background-position:center center;
   width:20px !important;
-  padding:3px 8px 3px 8px !important;
-  margin-right:4px;
+  padding:8px 16px !important;
+  /*margin:3px 4px 3px;*/
+  margin:0 4px;
 }
 .TS-zoom_inner_text {
   display:none;
@@ -419,4 +423,21 @@
   border-top:1px solid #CECECE !important;
 }
 
-
+.naslovi{
+	font-family: Georgia, serif;
+	width:85%;
+	margin:2em auto 0;
+	background: #F7F7F7;
+	border:1px solid rgb(206, 206, 206);
+    box-shadow: 0px 0px 2px rgb(206, 206, 206);
+}
+.naslovi div{
+	padding:1em 3em;
+}
+.naslovi h1{
+	margin-bottom:0;
+}
+.naslovi h2{
+	margin-top:0.15em;
+	font-style: oblique
+}
