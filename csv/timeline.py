@@ -27,7 +27,7 @@ def crawl():
 
     for el in content:
         if el.tag=='p':
-            cur_html = cur_html + tostring(el)
+            cur_html = cur_html + tostring(el, encoding='utf-8')
 
         elif el.tag=='h3':
             if not skip:
@@ -74,8 +74,8 @@ def output(data, keep_empty_date=False):
                 html = html.replace('\n',' ').replace('"','""').strip()
                 #if text=='': continue
                 line = '"%s",%s,,,,"%s"\n' % (date,
-                                              display_date.encode('ascii', 'xmlcharrefreplace'),
-                                              html.encode('utf-8'))
+                                              display_date.encode('utf-8'),
+                                              html)
                 f.write(line)
 
 def main():
